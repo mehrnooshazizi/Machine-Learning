@@ -5,12 +5,12 @@ Created on Sun Oct  4 14:51:09 2020
 @author: Poorvahab
 """
 import pandas as pd
-
+from sklearn import metrics
+from sklearn.model_selection import train_test_split
 dataset = pd.read_csv('vehicle_csv.csv')
 print('\n________ Dataset _________')
 print(dataset)
 
-from sklearn.model_selection import train_test_split
 x= dataset[['COMPACTNESS','CIRCULARITY','DISTANCE_CIRCULARITY','RADIUS_RATIO',
             'PR.AXIS_ASPECT_RATIO','MAX.LENGTH_ASPECT_RATIO','SCATTER_RATIO',
             'ELONGATEDNESS','PR.AXIS_RECTANGULARITY','MAX.LENGTH_RECTANGULARITY',
@@ -23,10 +23,13 @@ from sklearn.ensemble import RandomForestClassifier
 classifier= RandomForestClassifier(n_estimators=100)
 classifier.fit(xtrain, ytrain)
 ypredict= classifier.predict(xtest)
-from sklearn import metrics
-accuracy= metrics.accuracy_score(ytest, ypredict)
-print('_____________________________ACCURACY____________________________')
-print(f'Your RandomForest Accuracy is: {accuracy}')
+ytrainpredict= classifier.predict(xtrain)
+accuracytrain= metrics.accuracy_score(ytrain, ytrainpredict)
+accuracytest= metrics.accuracy_score(ytest, ypredict)
+print('_____________________________Train ACCURACY____________________________')
+print(f'Your RandomForest Accuracy is: {accuracytrain}')
+print('_____________________________Test ACCURACY____________________________')
+print(f'Your RandomForest Accuracy is: {accuracytest}')
 print('_________________PREDICTION BASED ON YOUR INPUTS_________________')
 print(classifier.predict([[109,55,102,169,51,6,241,27,26,165,265,870,247,84,10,11,184,183]]))
 
