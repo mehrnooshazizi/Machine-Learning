@@ -2,11 +2,12 @@
 """
 Created on Sun Oct  4 14:51:09 2020
 
-@author: Poorvahab
+@author: Azizi
 """
 import pandas as pd
 from sklearn import metrics
 from sklearn.model_selection import train_test_split
+from sklearn.ensemble import RandomForestClassifier
 dataset = pd.read_csv('vehicle_csv.csv')
 print('\n________ Dataset _________')
 print(dataset)
@@ -19,7 +20,7 @@ x= dataset[['COMPACTNESS','CIRCULARITY','DISTANCE_CIRCULARITY','RADIUS_RATIO',
             'KURTOSIS_ABOUT_MINOR','HOLLOWS_RATIO']]
 y= dataset['Class']
 xtrain, xtest,ytrain,ytest = train_test_split(x,y,test_size=0.3)
-from sklearn.ensemble import RandomForestClassifier
+
 classifier= RandomForestClassifier(n_estimators=100)
 classifier.fit(xtrain, ytrain)
 ypredict= classifier.predict(xtest)
